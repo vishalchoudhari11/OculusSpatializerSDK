@@ -53,6 +53,13 @@ int main(){
     config.acc_SampleRate = 48000;
     config.acc_BufferLength = 512;
     config.acc_MaxNumSources = 16;
+    
+    result = ovrAudio_CreateContext(&c1, &config);
+    if (result == 1){
+        cout << "Context has been created successfully!" << endl;
+    } else{
+        cout << "Oops! Context could not be created." << endl;
+    }
 
 //    ovrAudio_DestroyContext(c1);
 //    ovrAudio_Shutdown();
