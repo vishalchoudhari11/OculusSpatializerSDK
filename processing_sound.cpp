@@ -2,6 +2,12 @@
 #include "OVR_Audio.h"
 using namespace std;
 
+void shutdownOvrAudio(ovrAudioContext c)
+{
+   ovrAudio_DestroyContext(c);
+   ovrAudio_Shutdown();
+}
+
 void setup()
 {
     // Version checking is not strictly necessary but it's a good idea!
@@ -35,13 +41,6 @@ void setup()
     shutdownOvrAudio(context);
     
 }
-
-void shutdownOvrAudio(ovrAudioContext c)
-{
-   ovrAudio_DestroyContext(c);
-   ovrAudio_Shutdown();
-}
-
 
 int main(){
 	cout << "My neighbours are noisy!" << endl;
