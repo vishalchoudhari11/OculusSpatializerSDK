@@ -2,12 +2,6 @@
 #include "OVR_Audio.h"
 using namespace std;
 
-void shutdownOvrAudio(ovrAudioContext c)
-{
-   ovrAudio_DestroyContext(c);
-   ovrAudio_Shutdown();
-}
-
 void setup()
 {
     // Version checking is not strictly necessary but it's a good idea!
@@ -38,14 +32,14 @@ void setup()
       return;
     }
     
-    shutdownOvrAudio(context);
+    ovrAudio_DestroyContext(context);
     
 }
 
 int main(){
 	cout << "My neighbours are noisy!" << endl;
     
-    ovrAudioContext context;
+    ovrAudioContext c1;
     
     ovrAudioEnable room_setting_SRM = ovrAudioEnable_SimpleRoomModeling;
     ovrAudioEnable room_setting_LR  = ovrAudioEnable_LateReverberation;
@@ -58,7 +52,8 @@ int main(){
     config.acc_BufferLength = 512;
     config.acc_MaxNumSources = 16;
 
-    shutdownOvrAudio(context);
+    ovrAudio_DestroyContext(c1);
+    ovrAudio_Shutdown();
     
     cout << "My neighbours are noisy again!" << endl;
    	return 0;
