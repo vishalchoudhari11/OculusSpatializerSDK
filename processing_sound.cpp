@@ -32,12 +32,14 @@ void setup()
       return;
     }
     
-    ovrAudio_DestroyContext(context);
+//    ovrAudio_DestroyContext(context);
     
 }
 
 int main(){
 	cout << "My neighbours are noisy!" << endl;
+    
+    setup()
     
     ovrAudioContext c1;
     
