@@ -39,7 +39,7 @@ void setup()
 int main(){
 	cout << "My neighbours are noisy!" << endl;
     
-    setup()
+    setup();
     
     ovrAudioContext c1;
     
