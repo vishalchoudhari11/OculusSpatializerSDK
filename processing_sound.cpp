@@ -29,7 +29,8 @@ int main(){
     config.acc_BufferLength = 512;
     config.acc_MaxNumSources = 16;
     
-    
+    ovrAudio_DestroyContext( AudioContext );
+    ovrAudio_Shutdown();
 
     cout << "My neighbours are noisy again!" << endl;
    	return 0;
