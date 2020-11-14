@@ -53,7 +53,7 @@ int main(){
     config.acc_MaxNumSources = 16;
 
     ovrAudio_DestroyContext(c1);
-    ovrAudio_Shutdown();
+//    ovrAudio_Shutdown();
     
     cout << "My neighbours are noisy again!" << endl;
    	return 0;
