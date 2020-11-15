@@ -165,7 +165,7 @@ int main(){
             
             ovrAudio_SetAudioSourcePos(c1, i, x, y, z);
             records1 = records1 + 1;
-            cout<<"Records1 count: "records1<<endl;
+            cout<<"Records1 count: "<<records1<<endl;
         }
         
 //      If either posn files is at end, set fetch_block = 0
