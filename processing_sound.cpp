@@ -119,14 +119,18 @@ int main(){
         
     }
     
+//  Declaring variables
+    
+    
+    int i = 0;
     
 //  Applying spatialisation
     
-    for (int i = 0; i < N; i++){
-        
-        cout<<sound[i]<<endl;
-        
+    do{
+        cout<<i<<endl;
+        i = i +1;
     }
+    while(i<=10)
     
 //  CSV Write
     
