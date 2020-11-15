@@ -134,16 +134,6 @@ for i = 1:1:length(sound_files)
     trajectory = trajectory_data.(sound_files(i));
     trajectory = trajectory';
     
-    xyz_data = zeros(length(y), 3);
-    
-    for j = 1:1:length(y)
-        
-        xyz_data(j, 1) = d * cosd(trajectory(j)); % x 
-        xyz_data(j, 2) = 0; % y
-        xyz_data(j, 3) = -d * sind(trajectory(j)); % z
-        
-    end
-   
-    writematrix(xyz_data, strcat(sound_files(i), "_", "xyz", ".csv"));
+    xyz
     
 end
