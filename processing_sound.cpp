@@ -133,16 +133,36 @@ int main(){
 //        Location changes once per buffer_block
         
 //        Setting position of sources
+        
         for(int i = 0; i < N; i++){
             
-            string x, y, z;
-            getline(posns_files[i], x, '\n');
-            getline(posns_files[i], y, '\n');
-            getline(posns_files[i], z, '\n');
+            string posn_string;
+            vector<string> v;
+            
+            getline(posns_files[i], posn_string, '\n');
+            
+//          Parsing
+            
+            stringstream ss(posn_string);
+            
+            while (ss.good()) {
+                string substr;
+                getline(ss, substr, ',');
+                v.push_back(substr);
+            }
+            
+            float x, y, z;
+            
+            x = float(v[0]);
+            y = float(v[1]);
+            z = float(v[2]);
             
             cout<<"Sound No: "<<i<<" Posn: "<<endl<<x<<endl<<y<<endl<<z<<endl;
             
         }
+        
+//      Fetching block
+
         
     }
     while(proceed == 1);
