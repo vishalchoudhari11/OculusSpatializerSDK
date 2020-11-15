@@ -155,9 +155,9 @@ int main(){
             
             float x, y, z;
             
-            x = float(v[0]);
-            y = float(v[1]);
-            z = float(v[2]);
+            x = stof(v[0]);
+            y = stof(v[1]);
+            z = stof(v[2]);
             
             cout<<"Sound No: "<<i<<" Posn: "<<endl<<x<<endl<<y<<endl<<z<<endl;
             
