@@ -124,8 +124,10 @@ int main(){
 //  Declaring variables
     
     
-    int proceed = 0;
+    int proceed = 1;
     int buffer_size = 512;
+    int records1 = 0;
+    int records2 = 0;
     
 //  Applying spatialisation
     
@@ -159,15 +161,42 @@ int main(){
             y = stof(v[1]);
             z = stof(v[2]);
             
-            cout<<"Sound No: "<<i<<" Posn: "<<endl<<x<<endl<<y<<endl<<z<<endl;
+//            cout<<"Sound No: "<<i<<" Posn: "<<endl<<x<<endl<<y<<endl<<z<<endl;
+            
+            ovrAudio_SetAudioSourcePos(c1, i, x, y, z);
+            records1 = records1 + 1;
+
+        }
+        
+//      If either posn files is at end, set fetch_block = 0
+        int check = 0;
+        
+        for(int i = 0; i < N; i++){
+            check = check + posns_files[i].good();
+        }
+        
+        if (check == 1){
+            proceed = 0;
+            cout<<"Ending, proceed = 0. Records1 counted: "<<records1<<endl;
+        }
+        
+        
+//      Fetching block
+        
+        if (proceed == 1){
+            
+            records2 = records2 + 1;
             
         }
         
-//      Fetching block
-
+        
+        
+//      Apply spatialisation to the block
         
     }
     while(proceed == 1);
+    
+    cout<<"Value of records2: "<<records2<<endl;
     
 //  CSV Write
     
