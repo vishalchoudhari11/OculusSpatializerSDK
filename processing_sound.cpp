@@ -121,6 +121,13 @@ int main(){
         
     }
     
+    //  Opening an output file
+    
+    ofstream opfile;
+    opfile.open("output.csv");
+    
+
+    
 //  Declaring variables
     
     string posn_string;
@@ -128,9 +135,6 @@ int main(){
     int buffer_size = 512;
     int records1 = 0;
     int records2 = 0;
-    
-//  Applying spatialisation
-    
     
 //  Determine how many blocks
     
@@ -168,6 +172,92 @@ int main(){
     cout<<"Least number of blocks: "<<least<<endl;
     
     
+//  Applying spatialisation
+    
+    for(int blk = 1; blk <= least - 2; blk++){
+    
+        cout<<"Processing block "<<blk<<" of "<<leas-2<<"."<<endl;
+        
+//      Read and apply block position
+        
+        for(int i = 0; i < N; i++){
+
+
+            vector<string> v;
+
+            getline(posns_files[i], posn_string, '\n');
+
+//          Parsing
+
+            stringstream ss(posn_string);
+
+            while (ss.good()) {
+                string substr;
+                getline(ss, substr, ',');
+                v.push_back(substr);
+            }
+
+            float x, y, z;
+
+            x = stof(v[0]);
+            y = stof(v[1]);
+            z = stof(v[2]);
+
+            cout<<"Sound No: "<<i<<" Posn: "<<endl<<x<<endl<<y<<endl<<z<<endl;
+            ovrAudio_SetAudioSourcePos(c1, i, x, y, z);
+
+        }
+        
+        
+//      Read blocks
+        
+        uint32_t Flags = 0, Status = 0;
+        
+        float inbuffer[512];
+        float outbuffer[1024];
+        float mixbuffer[1024];
+        string sample_string;
+        
+        for(int i = 0; i < N; i++){
+        
+            for(int sample_no = 0; sample_no < 512; sample_no++){
+                getline(sound_files[i], sample_string, '\n');
+                inbuffer[sample_no] = stof[sample_string];
+            }
+            
+            ovrAudio_SpatializeMonoSourceInterleaved(c1, i, &Status, outbuffer, inbuffer);
+            
+            for(int j = 0; j < 1024; j ++){
+                if (i==0){
+                    mixbuffer[j] = outbuffer[j];
+                } else {
+                    mixbuffer[j] = mixbuffer[j] + outbuffer[j];
+                }
+            }
+            
+        }
+        
+        
+        
+        
+        
+        
+//      Write output files
+        
+        for(int j = 0; j < 1024; j++){
+            opfile<<mixbuffer[j]<<endl;
+        }
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
 //    do{
 //
 ////        Reading block-by-block [buffer_size values]
@@ -175,33 +265,7 @@ int main(){
 //
 ////        Setting position of sources
 //
-//        for(int i = 0; i < N; i++){
-//
-//
-//            vector<string> v;
-//
-//            getline(posns_files[i], posn_string, '\n');
-//
-////          Parsing
-//
-//            stringstream ss(posn_string);
-//
-//            while (ss.good()) {
-//                string substr;
-//                getline(ss, substr, ',');
-//                v.push_back(substr);
-//            }
-//
-//            float x, y, z;
-//
-//            x = stof(v[0]);
-//            y = stof(v[1]);
-//            z = stof(v[2]);
-//
-//            cout<<"Sound No: "<<i<<" Posn: "<<endl<<x<<endl<<y<<endl<<z<<endl;
-//            ovrAudio_SetAudioSourcePos(c1, i, x, y, z);
-//
-//        }
+
 //
 //        records1 = records1 + 1;
 //        cout<<"Records1 count: "<<records1<<endl;
@@ -234,7 +298,7 @@ int main(){
 //    }
 //    while(proceed == 1);
     
-    cout<<"Value of records2: "<<records2<<endl;
+//    cout<<"Value of records2: "<<records2<<endl;
     
 //  CSV Write
     
@@ -252,6 +316,8 @@ int main(){
         posns_files[i].close();
         
     }
+    
+    opfile.close();
     
     cout << "My neighbours are noisy again!" << endl;
    	return 0;
