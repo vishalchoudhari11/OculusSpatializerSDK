@@ -108,7 +108,7 @@ int main(){
     
 //  Applying spatialisation
     
-    for (int i = 0; i < N, i++){
+    for (int i = 0; i < N; i++){
         
         cout<<sound[i]<<endl;
         
