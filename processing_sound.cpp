@@ -123,7 +123,7 @@ int main(){
     
 //  Declaring variables
     
-    
+    string posn_string;
     int proceed = 1;
     int buffer_size = 512;
     int records1 = 0;
@@ -131,71 +131,108 @@ int main(){
     
 //  Applying spatialisation
     
-    do{
-        
-//        Reading block-by-block [buffer_size values]
-//        Location changes once per buffer_block
-        
-//        Setting position of sources
-        
-        for(int i = 0; i < N; i++){
-            
-            string posn_string;
-            vector<string> v;
-            
+    
+//  Determine how many blocks
+    
+    int blocks[N];
+    
+    for (int i = 0; i < N; i ++){
+        blk_count  = 0;
+        while(posns_files[i].good){
             getline(posns_files[i], posn_string, '\n');
-            
-//          Parsing
-            
-            stringstream ss(posn_string);
-            
-            while (ss.good()) {
-                string substr;
-                getline(ss, substr, ',');
-                v.push_back(substr);
-            }
-            
-            float x, y, z;
-            
-            x = stof(v[0]);
-            y = stof(v[1]);
-            z = stof(v[2]);
-            
-            cout<<"Sound No: "<<i<<" Posn: "<<endl<<x<<endl<<y<<endl<<z<<endl;
-            ovrAudio_SetAudioSourcePos(c1, i, x, y, z);
-            
+            blk_count  = blk_count + 1;
         }
         
-        records1 = records1 + 1;
-        cout<<"Records1 count: "<<records1<<endl;
-        
-//      If either posn files is at end, set fetch_block = 0
-        int check = 0;
-        
-        for(int i = 0; i < N; i++){
-            check = check + posns_files[i].good();
-        }
-        
-        if (check == 1){
-            proceed = 0;
-            cout<<"Ending, proceed = 0. Records1 counted: "<<records1<<endl;
-        }
-        
-        
-//      Fetching block
-        
-        if (proceed == 1){
-            
-            records2 = records2 + 1;
-            
-        }
-        
-        
-        
-//      Apply spatialisation to the block
-        
+        cout<<"File: "<<i<<" has "<<blk_count<<" blocks"<<endl;
+        blocks[i]  = blk_count;
     }
-    while(proceed == 1);
+    
+//  Close and re-open posn files for further processing
+    
+    for(int i = 0; i < N; i++)
+    {
+        posns_files[i].close();
+        posns_files[i].open(posns[i]);
+    }
+    
+// Finding the least
+    
+    int least = blocks[0];
+    
+    for(int i = 0; i < N; i++){
+        if (blocks[i] <= least){
+            least = blocks[i];
+        }
+    }
+    
+    cout<<"Least number of blocks: "<<least<<endl;
+    
+    
+//    do{
+//
+////        Reading block-by-block [buffer_size values]
+////        Location changes once per buffer_block
+//
+////        Setting position of sources
+//
+//        for(int i = 0; i < N; i++){
+//
+//
+//            vector<string> v;
+//
+//            getline(posns_files[i], posn_string, '\n');
+//
+////          Parsing
+//
+//            stringstream ss(posn_string);
+//
+//            while (ss.good()) {
+//                string substr;
+//                getline(ss, substr, ',');
+//                v.push_back(substr);
+//            }
+//
+//            float x, y, z;
+//
+//            x = stof(v[0]);
+//            y = stof(v[1]);
+//            z = stof(v[2]);
+//
+//            cout<<"Sound No: "<<i<<" Posn: "<<endl<<x<<endl<<y<<endl<<z<<endl;
+//            ovrAudio_SetAudioSourcePos(c1, i, x, y, z);
+//
+//        }
+//
+//        records1 = records1 + 1;
+//        cout<<"Records1 count: "<<records1<<endl;
+//
+////      If either posn files is at end, set fetch_block = 0
+//        int check = 0;
+//
+//        for(int i = 0; i < N; i++){
+//            check = check + posns_files[i].good();
+//        }
+//
+//        if (check != N){
+//            proceed = 0;
+//            cout<<"Ending, proceed = 0. Records1 counted: "<<records1<<endl;
+//        }
+//
+//
+////      Fetching block
+//
+//        if (proceed == 1){
+//
+//            records2 = records2 + 1;
+//
+//        }
+//
+//
+//
+////      Apply spatialisation to the block
+//
+//    }
+//    while(proceed == 1);
     
     cout<<"Value of records2: "<<records2<<endl;
     
