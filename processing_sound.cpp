@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-
+#include <string>
 #include "OVR_Audio.h"
 using namespace std;
 
@@ -122,15 +122,30 @@ int main(){
 //  Declaring variables
     
     
-    int i = 0;
+    int proceed = 0;
+    int buffer_size = 512;
     
 //  Applying spatialisation
     
     do{
-        cout<<i<<endl;
-        i = i +1;
+        
+//        Reading block-by-block [buffer_size values]
+//        Location changes once per buffer_block
+        
+//        Setting position of sources
+        for(int i = 0; i < N; i++){
+            
+            string x, y, z;
+            getline(posns_files[i], x, ',');
+            getline(posns_files[i], y, ',');
+            getline(posns_files[i], z, ',');
+            
+            cout<<"Sound No: "<<i<<" Posn: "<<x<<y<<z<<endl;
+            
+        }
+        
     }
-    while(i<=10);
+    while(proceed == 1);
     
 //  CSV Write
     
