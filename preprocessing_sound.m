@@ -134,13 +134,19 @@ for i = 1:1:length(sound_files)
     trajectory = trajectory_data.(sound_files(i));
     trajectory = trajectory';
     
-    xyz_data = zeros(length(y), 3);
+    buffer_size = 512;
     
-    for j = 1:1:length(y)
+    idx = 1:buffer_size:length(y);
+    
+    trajectory_comp = trajectory(idx);
+    
+    xyz_data = zeros(length(trajectory_comp), 3);
+    
+    for j = 1:1:length(trajectory_comp)
         
-        xyz_data(j, 1) = d * cosd(trajectory(j)); % x 
+        xyz_data(j, 1) = d * cosd(trajectory_comp(j)); % x 
         xyz_data(j, 2) = 0; % y
-        xyz_data(j, 3) = -d * sind(trajectory(j)); % z
+        xyz_data(j, 3) = -d * sind(trajectory_comp(j)); % z
         
     end
    
