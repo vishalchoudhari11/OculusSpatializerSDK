@@ -137,7 +137,7 @@ int main(){
     int blocks[N];
     
     for (int i = 0; i < N; i ++){
-        blk_count  = 0;
+        int blk_count  = 0;
         while(posns_files[i].good()){
             getline(posns_files[i], posn_string, '\n');
             blk_count  = blk_count + 1;
