@@ -136,11 +136,11 @@ int main(){
         for(int i = 0; i < N; i++){
             
             string x, y, z;
-            getline(posns_files[i], x, ',');
-            getline(posns_files[i], y, ',');
-            getline(posns_files[i], z, ',');
+            getline(posns_files[i], x, '\n');
+            getline(posns_files[i], y, '\n');
+            getline(posns_files[i], z, '\n');
             
-            cout<<"Sound No: "<<i<<" Posn: "<<x<<y<<z<<endl;
+            cout<<"Sound No: "<<i<<" Posn: "<<endl<<x<<endl<<y<endl<<z<<endl;
             
         }
         
