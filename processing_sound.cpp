@@ -161,12 +161,13 @@ int main(){
             y = stof(v[1]);
             z = stof(v[2]);
             
-//            cout<<"Sound No: "<<i<<" Posn: "<<endl<<x<<endl<<y<<endl<<z<<endl;
-            
+            cout<<"Sound No: "<<i<<" Posn: "<<endl<<x<<endl<<y<<endl<<z<<endl;
             ovrAudio_SetAudioSourcePos(c1, i, x, y, z);
-            records1 = records1 + 1;
-            cout<<"Records1 count: "<<records1<<endl;
+            
         }
+        
+        records1 = records1 + 1;
+        cout<<"Records1 count: "<<records1<<endl;
         
 //      If either posn files is at end, set fetch_block = 0
         int check = 0;
