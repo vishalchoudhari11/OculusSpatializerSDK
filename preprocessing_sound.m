@@ -50,5 +50,17 @@ for i = 1:1:length(sound_files)
     
 end
 
+%% Writing processed sound files
+
+for i = 1:1:length(sound_files)
+    
+    y = sound_data.(sound_files(i));
+    audiowrite(strcat(path, "Processed_", sound_files(i), ".wav"), y, Fs);
+    
+end
+
 %% Generating trajectories
 
+%% Plotting trajectories
+
+%% Writing out processed sound files and trajectories
