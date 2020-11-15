@@ -97,6 +97,8 @@ figure('Position', [10 10 2000 1200]);
 
 for i = 1:1:length(sound_files)
     
+    subplot(length(sound_files), 1, i);
+    
     y = sound_data.(sound_files(i));
     dt = 1/Fs;
     t = 0:1:length(y) - 1;
@@ -108,17 +110,18 @@ for i = 1:1:length(sound_files)
     ang_vel = string(int32(mean( abs(trajectory(2:N) - trajectory(1:N-1))   /dt)));
     
     
-    plot(t, trajectory, 'linewidth', 2, 'DisplayName', strcat(sound_files(i), " - ", ang_vel, " degrees/s")); hold on;
-    
-end
-
+    plot(t, trajectory, 'linewidth', 2, 'DisplayName', strcat(sound_files(i), " - ", ang_vel, " degrees/s")); 
     ylabel("Azimuthal Angle", 'FontSize', 15, 'FontWeight', 'bold');
     xlabel("Time [in s]", 'FontSize', 15, 'FontWeight', 'bold');
 
     set(gca,'FontSize', 15);
-    title('Trajectory of Sound Sources', 'FontSize', 15, 'FontWeight', 'bold');
+%     title('Trajectory of Sound Sources', 'FontSize', 15, 'FontWeight', 'bold');
     legend('FontSize', 13, 'FontWeight', 'bold', 'Location', 'best');
     grid on;
+    
+end
+
+
 
 %% Processing trajectories
 
