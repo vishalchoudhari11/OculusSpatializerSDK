@@ -140,7 +140,7 @@ int main(){
             getline(posns_files[i], y, '\n');
             getline(posns_files[i], z, '\n');
             
-            cout<<"Sound No: "<<i<<" Posn: "<<endl<<x<<endl<<y<endl<<z<<endl;
+            cout<<"Sound No: "<<i<<" Posn: "<<endl<<x<<endl<<y<<endl<<z<<endl;
             
         }
         
