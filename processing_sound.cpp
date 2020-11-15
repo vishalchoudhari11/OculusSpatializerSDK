@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "OVR_Audio.h"
 using namespace std;
 
