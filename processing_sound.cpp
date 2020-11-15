@@ -54,8 +54,8 @@ int main(){
     config.acc_BufferLength = 512;
     config.acc_MaxNumSources = 16;
     
-    result = ovrAudio_CreateContext(&c1, &config);
-    if (result == 1){
+    int result = ovrAudio_CreateContext(&c1, &config);
+    if (result == 0){
         cout << "Context has been created successfully!" << endl;
     } else{
         cout << "Oops! Context could not be created." << endl;
