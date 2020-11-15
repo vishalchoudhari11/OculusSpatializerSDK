@@ -67,9 +67,9 @@ int main(){
     
 //  Passing previous room setting options to the created context and checking
     
-    int rs1 = OVRAudio_Enable(c1, room_setting_SRM, 1);
-    int rs2 = OVRAudio_Enable(c1, room_setting_LR, 1);
-    int rs3 = OVRAudio_Enable(c1, room_setting_RR, 1);
+    int rs1 = ovrAudio_Enable(c1, room_setting_SRM, 1);
+    int rs2 = ovrAudio_Enable(c1, room_setting_LR, 1);
+    int rs3 = ovrAudio_Enable(c1, room_setting_RR, 1);
     
     if( (rs1 == ovrSuccess) && (rs2 == ovrSuccess) && (rs3 == ovrSuccess)  ){
         cout<<"Room setting options have been set!" << endl;
