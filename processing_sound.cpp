@@ -130,7 +130,7 @@ int main(){
         cout<<i<<endl;
         i = i +1;
     }
-    while(i<=10)
+    while(i<=10);
     
 //  CSV Write
     
