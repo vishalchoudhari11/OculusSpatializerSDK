@@ -176,7 +176,7 @@ int main(){
     
     for(int blk = 1; blk <= least - 2; blk++){
     
-        cout<<"Processing block "<<blk<<" of "<<leas-2<<"."<<endl;
+        cout<<"Processing block "<<blk<<" of "<<least-2<<"."<<endl;
         
 //      Read and apply block position
         
@@ -222,7 +222,7 @@ int main(){
         
             for(int sample_no = 0; sample_no < 512; sample_no++){
                 getline(sound_files[i], sample_string, '\n');
-                inbuffer[sample_no] = stof[sample_string];
+                inbuffer[sample_no] = stof(sample_string);
             }
             
             ovrAudio_SpatializeMonoSourceInterleaved(c1, i, &Status, outbuffer, inbuffer);
