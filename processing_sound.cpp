@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+
 #include "OVR_Audio.h"
 using namespace std;
 
@@ -103,8 +105,20 @@ int main(){
     
     int N = 2;
     char sound[N][20] = {"Host_44100.csv", "Male1_44100.csv"};
+    char posns[N][20] = {"Host_xyz.csv", "Male1_xyz.csv"};
+
+    //  Open sound and posn CSV files
     
-//  Open CSV files
+    ifstream sound_files[N];
+    ifstream posns_files[N];
+    
+    for (int i = 0; i < N; i++){
+        
+        sound_files[i].open(sound[i]);
+        posns_files[i].open(posns[i]);
+        
+    }
+    
     
 //  Applying spatialisation
     
@@ -121,6 +135,15 @@ int main(){
     
 //    ovrAudio_DestroyContext(c1);
 //    ovrAudio_Shutdown();
+    
+//  Closing the files
+    
+    for (int i = 0; i < N; i++){
+        
+        sound_files[i].close();
+        posns_files[i].close();
+        
+    }
     
     cout << "My neighbours are noisy again!" << endl;
    	return 0;
