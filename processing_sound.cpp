@@ -98,6 +98,24 @@ int main(){
         cout << "Oops! Box room params have not been set." << endl;
     }
     
+//  Managing sounds
+    
+    
+    int N = 2;
+    char sound[N][20] = {"Host_44100.csv", "Male1_44100.csv"};
+    
+//  Open CSV files
+    
+//  Applying spatialisation
+    
+    for (int i = 0; i < N, i++){
+        
+        cout<<sound[i]<<endl;
+        
+    }
+    
+//  CSV Write
+    
     
     
     
