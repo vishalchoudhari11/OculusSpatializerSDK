@@ -50,8 +50,8 @@ int main(){
     
 //  Room setting parameters
     ovrAudioEnable room_setting_SRM = ovrAudioEnable_SimpleRoomModeling;
-    ovrAudioEnable room_setting_LR  = ovrAudioEnable_LateReverberation;
-    ovrAudioEnable room_setting_RR  = ovrAudioEnable_RandomizeReverb;
+//    ovrAudioEnable room_setting_LR  = ovrAudioEnable_LateReverberation;
+//    ovrAudioEnable room_setting_RR  = ovrAudioEnable_RandomizeReverb;
 
 //  Configuring AudioContext Parameters
     ovrAudioContextConfiguration config = {};
@@ -73,10 +73,11 @@ int main(){
 //  Passing previous room setting options to the created context and checking
     
     int rs1 = ovrAudio_Enable(c1, room_setting_SRM, 1);
-    int rs2 = ovrAudio_Enable(c1, room_setting_LR, 1);
-    int rs3 = ovrAudio_Enable(c1, room_setting_RR, 1);
-    
-    if( (rs1 == ovrSuccess) && (rs2 == ovrSuccess) && (rs3 == ovrSuccess)  ){
+//    int rs2 = ovrAudio_Enable(c1, room_setting_LR, 1);
+//    int rs3 = ovrAudio_Enable(c1, room_setting_RR, 1);
+
+    if((rs1 == ovrSuccess)){
+//    if( (rs1 == ovrSuccess) && (rs2 == ovrSuccess) && (rs3 == ovrSuccess)  ){
         cout<<"Room setting options have been set!" << endl;
     } else{
         cout << "Oops! Room setting parameters have not been set." << endl;

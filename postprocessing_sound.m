@@ -1,6 +1,6 @@
 %% Reading the output
 
-out = readmatrix("output_male_0.4_20_5_20.csv");
+out = readmatrix("output_male_0.97_20_5_20.csv");
 
 %% Extracting L and R Channels
 
@@ -15,4 +15,4 @@ R = out(R_idx);
 audio_mat = [L R];
 Fs = 16000;
 
-audiowrite("output_male_0.4_20_5_20.wav", audio_mat, Fs);
+audiowrite("output_male_0.97_20_5_20.wav", audio_mat, Fs);
