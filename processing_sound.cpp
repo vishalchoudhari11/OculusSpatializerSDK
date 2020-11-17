@@ -109,6 +109,8 @@ int main(){
     
 //    int rsN2 = ovrAudio_SetReflectionModel(c1, ovrAudioReflectionModel_StaticShoeBox);
     
+    ovrAudio_SetSharedReverbWetLevel(c1, 0.5);
+    
 //  Managing sounds
     
     
