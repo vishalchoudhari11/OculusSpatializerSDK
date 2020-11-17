@@ -87,9 +87,9 @@ int main(){
     ovrAudioBoxRoomParameters brp = {};
 
     brp.brp_Size = sizeof( brp );
-    brp.brp_ReflectLeft = brp.brp_ReflectRight = 0.4;
-    brp.brp_ReflectUp = brp.brp_ReflectDown = 0.4;
-    brp.brp_ReflectFront = brp.brp_ReflectBehind = 0.4;
+    brp.brp_ReflectLeft = brp.brp_ReflectRight = 0.97;
+    brp.brp_ReflectUp = brp.brp_ReflectDown = 0.97;
+    brp.brp_ReflectFront = brp.brp_ReflectBehind = 0.97;
 
     brp.brp_Width = 20;
     brp.brp_Height = 5;
@@ -129,7 +129,7 @@ int main(){
     //  Opening an output file
     
     ofstream opfile;
-    opfile.open("output_male_0.4_20_5_20.csv");
+    opfile.open("output_male_0.97_20_5_20.csv");
     
 
     
