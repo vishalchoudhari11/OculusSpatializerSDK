@@ -2,8 +2,8 @@
 
 %% Loading sound files
 
-environment  = 'NewsSetting';
-sound_files = ["Host", "Male1", "Male2", "Female1", "Female2"];
+environment  = 'CongShared';
+sound_files = ["male", "female"];
 
 sound_data  = struct;
 
@@ -86,6 +86,7 @@ for i = 1:1:length(sound_files)
     max_t = max(trajectory);
     
     trajectory = (trajectory - min_t) * (1/(max_t - min_t)) * 180;
+    trajectory = ones(1, length(y)) * 135;  % fixed sound source, uncomment
     trajectory_data = setfield(trajectory_data, sound_files(i), trajectory);
     
 end

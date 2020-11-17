@@ -57,7 +57,8 @@ int main(){
     ovrAudioContextConfiguration config = {};
     
     config.acc_Size = sizeof( config );
-    config.acc_SampleRate = 44100;
+    config.acc_SampleRate = 16000;
+//    config.acc_SampleRate = 44100;
     config.acc_BufferLength = 512;
     config.acc_MaxNumSources = 16;
     
@@ -105,9 +106,13 @@ int main(){
 //  Managing sounds
     
     
-    int N = 2;
-    char sound[N][20] = {"Host_44100.csv", "Male1_44100.csv"};
-    char posns[N][20] = {"Host_xyz.csv", "Male1_xyz.csv"};
+//    int N = 2;
+//    char sound[N][20] = {"Host_44100.csv", "Male1_44100.csv"};
+//    char posns[N][20] = {"Host_xyz.csv", "Male1_xyz.csv"};
+    
+    int N = 1;
+    char sound[N][20] = {"male_16000.csv"};
+    char posns[N][20] = {"male_xyz.csv"};
 
     //  Open sound and posn CSV files
     
@@ -124,7 +129,7 @@ int main(){
     //  Opening an output file
     
     ofstream opfile;
-    opfile.open("output.csv");
+    opfile.open("output_male_0.4_20_5_20.csv");
     
 
     
