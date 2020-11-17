@@ -95,7 +95,7 @@ int main(){
     brp.brp_ReflectUp = brp.brp_ReflectDown = 0.97;
     brp.brp_ReflectFront = brp.brp_ReflectBehind = 0.97;
 
-    brp.brp_Width = 20;
+    brp.brp_Width = 25;
     brp.brp_Height = 5;
     brp.brp_Depth = 20;
 
@@ -135,7 +135,7 @@ int main(){
     //  Opening an output file
     
     ofstream opfile;
-    opfile.open("output_male_0.97_20_5_20.csv");
+    opfile.open("output_male_0.97_20_5_20_2.csv");
     
 
     
@@ -147,11 +147,15 @@ int main(){
     int records1 = 0;
     int records2 = 0;
     
-//  Determine how many blocks
+//  Determine how many blocks and set HINTs
     
     int blocks[N];
     
     for (int i = 0; i < N; i ++){
+        
+//      Set hints
+        ovrAudio_SetAudioSourceFlags( c1, i, ovrAudioSourceFlag_WideBand_HINT);
+        
         int blk_count  = 0;
         while(posns_files[i].good()){
             getline(posns_files[i], posn_string, '\n');
