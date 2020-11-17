@@ -75,6 +75,7 @@ int main(){
     int rs1 = ovrAudio_Enable(c1, ovrAudioEnable_SimpleRoomModeling, 1);
 //    int rs2 = ovrAudio_Enable(c1, room_setting_LR, 1);
 //    int rs3 = ovrAudio_Enable(c1, room_setting_RR, 1);
+    
 
     if((rs1 == ovrSuccess)){
 //    if( (rs1 == ovrSuccess) && (rs2 == ovrSuccess) && (rs3 == ovrSuccess)  ){
@@ -82,6 +83,8 @@ int main(){
     } else{
         cout << "Oops! Room setting parameters have not been set." << endl;
     }
+    
+    int rsN = ovrAudio_SetReflectionModel(c1, ovrAudioReflectionModel_StaticShoeBox);
 
 //  Setting simple room parameters, passing to the context and checking
     
@@ -103,6 +106,8 @@ int main(){
     } else{
         cout << "Oops! Box room params have not been set." << endl;
     }
+    
+//    int rsN2 = ovrAudio_SetReflectionModel(c1, ovrAudioReflectionModel_StaticShoeBox);
     
 //  Managing sounds
     
