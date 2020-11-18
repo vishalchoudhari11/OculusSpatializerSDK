@@ -220,7 +220,8 @@ int main(){
             y = stof(v[1]);
             z = stof(v[2]);
 
-            cout<<"Sound No: "<<i<<" Posn: "<<endl<<x<<endl<<y<<endl<<z<<endl;
+            cout<<"Positions successfully updated!" << endl;
+
             ovrAudio_SetAudioSourcePos(c1, i, x, y, z);
 
         }
@@ -235,13 +236,15 @@ int main(){
         float mixbuffer[1024];
         string sample_string;
         
-        for(int i = 0; i < N; i++){
+        cout<<"Reading block: " << blk << " from sound .csv"<<endl;
         
+        for(int i = 0; i < N; i++){
+            
             for(int sample_no = 0; sample_no < 512; sample_no++){
                 getline(sound_files[i], sample_string, '\n');
                 inbuffer[sample_no] = stof(sample_string);
             }
-            
+        
             ovrAudio_SpatializeMonoSourceInterleaved(c1, i, &Status, outbuffer, inbuffer);
             
             for(int j = 0; j < 1024; j ++){
@@ -254,7 +257,7 @@ int main(){
             
         }
         
- 
+        cout<<"Finished processing block: " << blk << " from sound .csv"<<endl;
         
 //      Write output files
         
