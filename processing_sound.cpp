@@ -113,7 +113,7 @@ int main(){
     
     for (int i = 0; i < N; i ++){
         sound[i] = input_path + sound_file_names[i] + "_" + to_string(config.acc_SampleRate) + ".csv";
-        pons[i] = input_path + sound_file_names[i] + "_" + "xyz.csv";
+        posns[i] = input_path + sound_file_names[i] + "_" + "xyz.csv";
     }
     
 //    int N = 1;
