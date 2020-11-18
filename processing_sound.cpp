@@ -137,7 +137,7 @@ int main(){
     
     
     ofstream opfile;
-    opfile.open("FromCPP/" + write_name + ".csv");
+    opfile.open(strcat(strcat("FromCPP/", write_name), ".csv"));
     
 
     
