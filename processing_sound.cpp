@@ -106,14 +106,27 @@ int main(){
 //  Managing sounds
     
     int N = 1;
-    char sound_file_names[N][20] = {"male"};
-    char sound[N][30];
-    char posns[N][30];
+    string sound_file_names[N] = {"male"};
+    string sound[N];
+    string posns[N];
+    string input_path = "ToCPP/"
     
-    for(int i = 0; i<N; i++){
-        sound[i] = strcat(strcat(strcat("ToCPP/", sound_file_names[i]), strcat("_", to_string(config.acc_SampleRate))), ".csv");
-        posns[i] = strcat(strcat("ToCPP/", sound_file_names[i]), strcat("_xyz", ".csv"));
+    for (int i = 0; i < N; i ++){
+        sound[i] = input_path + sound_file_names[i] + "_" + to_string(config.acc_SampleRate) + ".csv";
+        pons[i] = input_path + sound_file_names[i] + "_" + "xyz.csv";
     }
+    
+//    int N = 1;
+//    char sound_file_names[N][20] = {"male"};
+//    char sound[N][30];
+//    char posns[N][30];
+//
+//    char input_path[50] = "ToCPP/";
+//
+//    for(int i = 0; i<N; i++){
+//        sound[i] = strcat(strcat(strcat("ToCPP/", sound_file_names[i]), strcat("_", to_string(config.acc_SampleRate))), ".csv");
+//        posns[i] = strcat(strcat("ToCPP/", sound_file_names[i]), strcat("_xyz", ".csv"));
+//    }
 
     //  Open sound and posn CSV files
     
@@ -128,17 +141,17 @@ int main(){
     }
     
     //  Opening an output file
-    char write_name[100];
+    string write_name;
     for (int i = 0; i<N; i++){
-        write_name = strcat(write_name, sound_file_names[i]);
+        write_name = write_name + sound_file_names[i];
         if (i < N-1){
-            write_name = strcat(write_name, "+");
+            write_name = write_name + "+";
         }
     }
     
     
     ofstream opfile;
-    opfile.open(strcat(strcat("FromCPP/", write_name), ".csv"));
+    opfile.open("FromCPP/" + write_name + ".csv");
     
 
     
