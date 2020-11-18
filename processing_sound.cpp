@@ -109,7 +109,7 @@ int main(){
     string sound_file_names[N] = {"male"};
     string sound[N];
     string posns[N];
-    string input_path = "ToCPP/"
+    string input_path = "ToCPP/";
     
     for (int i = 0; i < N; i ++){
         sound[i] = input_path + sound_file_names[i] + "_" + to_string(config.acc_SampleRate) + ".csv";
