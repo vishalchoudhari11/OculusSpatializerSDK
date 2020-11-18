@@ -105,8 +105,9 @@ int main(){
     
 //  Managing sounds
     
-    int N = 2;
+    int N = 3;
     string sound_file_names[N] = {"male", "female", "male_kid"};
+    
     string sound[N];
     string posns[N];
     string input_path = "ToCPP/";
