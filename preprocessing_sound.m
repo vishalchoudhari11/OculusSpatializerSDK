@@ -3,7 +3,7 @@
 %% Loading sound files
 
 environment  = 'SamplesCheck';
-sound_files = ["male"];
+sound_files = ["male", "female"];
 
 sound_data  = struct;
 

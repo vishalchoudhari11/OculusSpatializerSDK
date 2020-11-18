@@ -1,8 +1,14 @@
 %% Reading the output
 
-out = readmatrix("output_male_0.97_20_5_20_3.csv");
+readpath = "FromCPP/";
+filename = "male";
+out = readmatrix(strcat(readpath, filename, ".csv"));
 
 %% Extracting L and R Channels
+
+% Normalising 
+
+out = out/max(abs(out));
 
 L_idx = 1:2:length(out);
 R_idx = 2:2:length(out);
@@ -12,7 +18,9 @@ R = out(R_idx);
 
 %% Writing audio file
 
-audio_mat = [L R];
-Fs = 16000;
+writepath = "Spatialized/";
 
-audiowrite("output_male_0.97_20_5_20_3.wav", audio_mat, Fs);
+audio_mat = [L R];
+Fs = 44100;
+
+audiowrite(strcat(writepath, filename, ".wav"), audio_mat, Fs);
