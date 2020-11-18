@@ -111,8 +111,8 @@ int main(){
     char posns[N][30];
     
     for(int i = 0; i<N; i++){
-        sound[i] = "ToCPP/" + sound_file_names[i] + "_" + to_string(config.acc_SampleRate) + ".csv";
-        posns[i] = "ToCPP/" + sound_file_names[i] + "_xyz" + ".csv";
+        sound[i] = strcat(strcat(strcat("ToCPP/", sound_file_names[i]), strcat("_", to_string(config.acc_SampleRate))), ".csv");
+        posns[i] = strcat(strcat("ToCPP/", sound_file_names[i]), strcat("_xyz", ".csv"));
     }
 
     //  Open sound and posn CSV files
@@ -129,10 +129,10 @@ int main(){
     
     //  Opening an output file
     char write_name[100];
-    for int(i = 0; i<N; i++){
-        write_name = write_name + sound_file_names[i]
+    for (int i = 0; i<N; i++){
+        write_name = strcat(write_name, sound_file_names[i]);
         if (i < N-1){
-            write_name = write_name + "+";
+            write_name = strcat(write_name, "+");
         }
     }
     
