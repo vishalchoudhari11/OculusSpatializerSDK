@@ -1,7 +1,7 @@
 %% Reading the output
 
 readpath = "FromCPP/";
-filename = "male";
+filename = "male+female";
 out = readmatrix(strcat(readpath, filename, ".csv"));
 
 %% Extracting L and R Channels
