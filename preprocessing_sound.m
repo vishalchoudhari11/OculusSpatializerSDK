@@ -2,8 +2,8 @@
 
 %% Loading sound files
 
-environment  = 'CongShared';
-sound_files = ["male", "female"];
+environment  = 'SamplesCheck';
+sound_files = ["male"];
 
 sound_data  = struct;
 
@@ -54,8 +54,10 @@ end
 
 for i = 1:1:length(sound_files)
     
+    writepath = "ToCPP/";
+    
     y = sound_data.(sound_files(i));
-    audiowrite(strcat(path, "Processed_", sound_files(i), ".wav"), y, Fs);
+    audiowrite(strcat(writepath, "Processed_", sound_files(i), ".wav"), y, Fs);
     
 end
 
@@ -86,7 +88,6 @@ for i = 1:1:length(sound_files)
     max_t = max(trajectory);
     
     trajectory = (trajectory - min_t) * (1/(max_t - min_t)) * 180;
-    trajectory = ones(1, length(y)) * 135;  % fixed sound source, uncomment
     trajectory_data = setfield(trajectory_data, sound_files(i), trajectory);
     
 end
@@ -122,8 +123,6 @@ for i = 1:1:length(sound_files)
     
 end
 
-
-
 %% Processing trajectories
 
 d = 5; % metres
@@ -132,8 +131,10 @@ d = 5; % metres
 
 for i = 1:1:length(sound_files)
    
+    writepath = "ToCPP/";
+    
     y = sound_data.(sound_files(i));
-    writematrix(y, strcat(sound_files(i), "_", string(Fs), ".csv"));
+    writematrix(y, strcat(writepath, sound_files(i), "_", string(Fs), ".csv"));
     
     trajectory = trajectory_data.(sound_files(i));
     trajectory = trajectory';
@@ -154,6 +155,6 @@ for i = 1:1:length(sound_files)
         
     end
    
-    writematrix(xyz_data, strcat(sound_files(i), "_", "xyz", ".csv"));
+    writematrix(xyz_data, strcat(writepath, sound_files(i), "_", "xyz", ".csv"));
     
 end

@@ -41,24 +41,32 @@ void setup()
 }
 
 int main(){
+    
 	cout << "My neighbours are noisy!" << endl;
+    
 //  Check setup
     setup();
     
 //  Declaring a context
     ovrAudioContext c1;
     
-//  Room setting parameters
-    ovrAudioEnable room_setting_SRM = ovrAudioEnable_SimpleRoomModeling;
-//    ovrAudioEnable room_setting_LR  = ovrAudioEnable_LateReverberation;
-//    ovrAudioEnable room_setting_RR  = ovrAudioEnable_RandomizeReverb;
+//  Turning on room paramters
+    int rs1 = ovrAudio_Enable(c1, ovrAudioEnable_SimpleRoomModeling, 1);
+    int rs2 = ovrAudio_Enable(c1, ovrAudioEnable_LateReverberation, 1);
+    int rs3 = ovrAudio_Enable(c1, ovrAudioEnable_RandomizeReverb, 1);
+    
+//  Check if enabled successfully
+    if( (rs1 == ovrSuccess) && (rs2 == ovrSuccess) && (rs3 == ovrSuccess)  ){
+        cout<<"Room setting options have been set!" << endl;
+    } else{
+        cout << "Oops! Room setting parameters have not been set." << endl;
+    }
 
 //  Configuring AudioContext Parameters
     ovrAudioContextConfiguration config = {};
     
     config.acc_Size = sizeof( config );
-    config.acc_SampleRate = 16000;
-//    config.acc_SampleRate = 44100;
+    config.acc_SampleRate = 44100;
     config.acc_BufferLength = 512;
     config.acc_MaxNumSources = 16;
     
@@ -69,24 +77,9 @@ int main(){
     } else{
         cout << "Oops! Context could not be created." << endl;
     }
-    
-//  Passing previous room setting options to the created context and checking
-    
-    int rs1 = ovrAudio_Enable(c1, ovrAudioEnable_SimpleRoomModeling, 1);
-//    int rs2 = ovrAudio_Enable(c1, room_setting_LR, 1);
-//    int rs3 = ovrAudio_Enable(c1, room_setting_RR, 1);
-    
-
-    if((rs1 == ovrSuccess)){
-//    if( (rs1 == ovrSuccess) && (rs2 == ovrSuccess) && (rs3 == ovrSuccess)  ){
-        cout<<"Room setting options have been set!" << endl;
-    } else{
-        cout << "Oops! Room setting parameters have not been set." << endl;
-    }
-    
-    int rsN = ovrAudio_SetReflectionModel(c1, ovrAudioReflectionModel_StaticShoeBox);
 
 //  Setting simple room parameters, passing to the context and checking
+    int rsN = ovrAudio_SetReflectionModel(c1, ovrAudioReflectionModel_StaticShoeBox);
     
     ovrAudioBoxRoomParameters brp = {};
 
@@ -101,26 +94,25 @@ int main(){
 
     int brp1 = ovrAudio_SetSimpleBoxRoomParameters(c1, &brp );
     
-    if( brp1 == ovrSuccess ){
+    if( brp1 == ovrSuccess && rsN == ovrSuccess){
         cout<<"Box room params have been set!" << endl;
     } else{
         cout << "Oops! Box room params have not been set." << endl;
     }
     
-//    int rsN2 = ovrAudio_SetReflectionModel(c1, ovrAudioReflectionModel_StaticShoeBox);
-    
     ovrAudio_SetSharedReverbWetLevel(c1, 0.5);
     
 //  Managing sounds
     
-    
-//    int N = 2;
-//    char sound[N][20] = {"Host_44100.csv", "Male1_44100.csv"};
-//    char posns[N][20] = {"Host_xyz.csv", "Male1_xyz.csv"};
-    
     int N = 1;
-    char sound[N][20] = {"male_16000.csv"};
-    char posns[N][20] = {"male_xyz.csv"};
+    char sound_file_names[N][20] = {"male"};
+    char sound[N][30];
+    char posns[N][30];
+    
+    for(int i = 0; i<N; i++){
+        sound[i] = "ToCPP/" + sound_file_names[i] + "_" + to_string(config.acc_SampleRate) + ".csv";
+        posns[i] = "ToCPP/" + sound_file_names[i] + "_xyz" + ".csv";
+    }
 
     //  Open sound and posn CSV files
     
@@ -135,9 +127,17 @@ int main(){
     }
     
     //  Opening an output file
+    char write_name[100];
+    for int(i = 0; i<N; i++){
+        write_name = write_name + sound_file_names[i]
+        if (i < N-1){
+            write_name = write_name + "+";
+        }
+    }
+    
     
     ofstream opfile;
-    opfile.open("output_male_0.97_20_5_20_3.csv");
+    opfile.open("FromCPP/" + write_name + ".csv");
     
 
     
@@ -176,7 +176,7 @@ int main(){
         posns_files[i].open(posns[i]);
     }
     
-// Finding the least
+// Finding the least number of blocks in the array of files [this is the time-limiter!]
     
     int least = blocks[0];
     
@@ -254,10 +254,7 @@ int main(){
             
         }
         
-        
-        
-        
-        
+ 
         
 //      Write output files
         
@@ -265,15 +262,6 @@ int main(){
             opfile<<mixbuffer[j]<<endl;
         }
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
     
 //    do{
 //
@@ -338,5 +326,4 @@ int main(){
     
     cout << "My neighbours are noisy again!" << endl;
    	return 0;
-
 }
