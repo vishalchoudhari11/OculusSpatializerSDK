@@ -3,7 +3,7 @@
 %% Loading sound files
 
 environment  = 'SamplesCheck';
-sound_files = ["male", "female", "male_kid", "grandma"];
+sound_files = ["male", "female", "malePolish"];
 
 sound_data  = struct;
 
@@ -92,6 +92,22 @@ for i = 1:1:length(sound_files)
     
 end
 
+%% Determining x_lim
+
+min_len = 0;
+
+for i = 1:1:length(sound_files)
+    
+    y = sound_data.(sound_files(i));
+    
+    if i == 1
+        min_len = length(y);
+    elseif length(y) < min_len
+        min_len = length(y);
+    end
+    
+end
+
 
 %% Plotting trajectories
 
@@ -118,7 +134,8 @@ for i = 1:1:length(sound_files)
 
     set(gca,'FontSize', 15);
 %     title('Trajectory of Sound Sources', 'FontSize', 15, 'FontWeight', 'bold');
-    legend('FontSize', 13, 'FontWeight', 'bold', 'Location', 'best');
+    legend('FontSize', 13, 'FontWeight', 'bold', 'Location', 'best', 'Interpreter', 'none');
+    xlim([0, t(min_len)]);
     grid on;
     
 end

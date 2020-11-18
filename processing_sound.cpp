@@ -105,8 +105,8 @@ int main(){
     
 //  Managing sounds
     
-    int N = 4;
-    string sound_file_names[N] = {"male", "female", "male_kid", "grandma"};
+    int N = 3;
+    string sound_file_names[N] = {"male", "female", "malePolish"};
     
     string sound[N];
     string posns[N];
