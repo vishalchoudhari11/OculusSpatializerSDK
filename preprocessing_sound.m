@@ -1,9 +1,12 @@
 %% This script is to preprocess the monophonic sound files and generate trajectories
 
+clc;
+clear all;
+
 %% Loading sound files
 
-environment  = 'SamplesCheck';
-sound_files = ["male", "female", "male_kid", "female_kid"];
+environment  = 'WaveNetOut';
+sound_files = ["Trial_1_Conv1", "Trial_1_Conv2"];
 
 sound_data  = struct;
 
