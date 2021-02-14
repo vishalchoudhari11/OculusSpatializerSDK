@@ -77,7 +77,7 @@ for i = 1:1:length(sound_files)
     t = 0:1:length(y) - 1;
     t = t * dt;
     
-    w = 0:15:90;
+    w = 0:1:45;
     phi = rand(1, length(w)) * 360;
     
     trajectory = zeros(1, length(y));
@@ -91,6 +91,14 @@ for i = 1:1:length(sound_files)
     max_t = max(trajectory);
     
     trajectory = (trajectory - min_t) * (1/(max_t - min_t)) * 180;
+    L = tukeywin(length(t), 0.1);
+    
+    if mod(i, 2) == 0
+        trajectory = L.*trajectory';
+    else
+        trajectory = 180 - L.*trajectory';
+    end
+    
     trajectory_data = setfield(trajectory_data, sound_files(i), trajectory);
     
 end
@@ -138,7 +146,7 @@ for i = 1:1:length(sound_files)
     set(gca,'FontSize', 15);
 %     title('Trajectory of Sound Sources', 'FontSize', 15, 'FontWeight', 'bold');
     legend('FontSize', 13, 'FontWeight', 'bold', 'Location', 'best', 'Interpreter', 'none');
-    xlim([0, t(min_len)]);
+    xlim([0, 120]);
     grid on;
     
 end
@@ -178,3 +186,7 @@ for i = 1:1:length(sound_files)
     writematrix(xyz_data, strcat(writepath, sound_files(i), "_", "xyz", ".csv"));
     
 end
+
+%% For further processing
+
+save('trajectory_data', 'trajectory_data');

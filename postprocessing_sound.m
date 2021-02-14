@@ -1,8 +1,9 @@
 %% Reading the output
 
 readpath = "FromCPP/";
-filename = "male+female+male_kid+female_kid";
+filename = "Trial_1_Conv1+Trial_1_Conv2";
 out = readmatrix(strcat(readpath, filename, ".csv"));
+Fs = 24000;
 
 %% Extracting L and R Channels
 
@@ -21,6 +22,5 @@ R = out(R_idx);
 writepath = "Spatialized/";
 
 audio_mat = [L R];
-Fs = 44100;
 
 audiowrite(strcat(writepath, filename, ".wav"), audio_mat, Fs);
