@@ -77,14 +77,16 @@ for i = 1:1:length(sound_files)
     t = 0:1:length(y) - 1;
     t = t * dt;
     
-    w = 0:1:45;
+    
+    w = 0:0.5:30; % deg/s
+    a = gausswin(length(w), 10);
     phi = rand(1, length(w)) * 360;
     
     trajectory = zeros(1, length(y));
     
     
     for j = 1:1:length(w)
-        trajectory = trajectory + cosd(w(j) * t + phi(j));
+        trajectory = trajectory + a(j) * cosd(w(j) * t + phi(j));
     end
     
     min_t = min(trajectory);

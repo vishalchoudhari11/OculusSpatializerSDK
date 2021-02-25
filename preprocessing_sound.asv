@@ -77,6 +77,8 @@ for i = 1:1:length(sound_files)
     t = 0:1:length(y) - 1;
     t = t * dt;
     
+    a = gausswin(61, 10);
+    ang_vel_deg
     w = 0:1:45;
     phi = rand(1, length(w)) * 360;
     
@@ -189,4 +191,4 @@ end
 
 %% For further processing
 
-save('trajectory_data', trajectory_data)
+save('trajectory_data', 'trajectory_data');

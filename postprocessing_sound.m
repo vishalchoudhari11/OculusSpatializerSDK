@@ -1,7 +1,7 @@
 %% Reading the output
 
 readpath = "FromCPP/";
-filename = "Trial_1_Conv1+Trial_1_Conv2";
+filename = "Trial_1_Conv2";
 out = readmatrix(strcat(readpath, filename, ".csv"));
 Fs = 24000;
 
