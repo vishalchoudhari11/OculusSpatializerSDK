@@ -106,7 +106,7 @@ int main(){
 //  Managing sounds
     
     int N = 1;
-    string sound_file_names[N] = {"Trial_1_Conv1"};
+    string sound_file_names[N] = {"Trial_1_Conv2"};
     
     string sound[N];
     string posns[N];
