@@ -155,7 +155,7 @@ end
 
 %% Processing trajectories
 
-d = 5; % metres
+d = 1.5; % metres
 
 %% Writing out processed sound files and trajectories in CSV
 

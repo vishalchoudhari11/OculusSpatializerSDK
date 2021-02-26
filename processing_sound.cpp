@@ -1,3 +1,10 @@
+/*
+
+\Author Vishal Choudhari
+\Date   26th Feb 2021
+
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -41,9 +48,10 @@ void setup()
     
 }
 
+
 int main(){
     
-	cout << "My neighbours are noisy!" << endl;
+	cout << "Booting up Oculus Audio SDK ..." << endl;
     
 //  Check setup
     setup();
@@ -51,14 +59,14 @@ int main(){
 //  Declaring a context
     ovrAudioContext c1;
     
-//  Turning on room paramters
+//  Turning on room paramters /hint:change ordering here?
     int rs1 = ovrAudio_Enable(c1, ovrAudioEnable_SimpleRoomModeling, 1);
     int rs2 = ovrAudio_Enable(c1, ovrAudioEnable_LateReverberation, 1);
     int rs3 = ovrAudio_Enable(c1, ovrAudioEnable_RandomizeReverb, 1);
     
 //  Check if enabled successfully
     if( (rs1 == ovrSuccess) && (rs2 == ovrSuccess) && (rs3 == ovrSuccess)  ){
-        cout<<"Room setting options have been set!" << endl;
+        cout<<"Room settings have been set!" << endl;
     } else{
         cout << "Oops! Room setting parameters have not been set." << endl;
     }
@@ -73,8 +81,8 @@ int main(){
     
 //  Creating a context with mentioned configuration and checking for success.
     int result = ovrAudio_CreateContext(&c1, &config);
-    if (result == 0){
-        cout << "Context has been created successfully!" << endl;
+    if (result == ovrSuccess){
+        cout << "Context in main function has been created successfully!" << endl;
     } else{
         cout << "Oops! Context could not be created." << endl;
     }
@@ -89,9 +97,9 @@ int main(){
     brp.brp_ReflectUp = brp.brp_ReflectDown = 0.97;
     brp.brp_ReflectFront = brp.brp_ReflectBehind = 0.97;
 
-    brp.brp_Width = 25;
-    brp.brp_Height = 5;
-    brp.brp_Depth = 20;
+    brp.brp_Width = 4;
+    brp.brp_Height = 3;
+    brp.brp_Depth = 6;
 
     int brp1 = ovrAudio_SetSimpleBoxRoomParameters(c1, &brp );
     
@@ -101,12 +109,12 @@ int main(){
         cout << "Oops! Box room params have not been set." << endl;
     }
     
-    ovrAudio_SetSharedReverbWetLevel(c1, 0.5);
+    // ovrAudio_SetSharedReverbWetLevel(c1, 0.5);
     
 //  Managing sounds
     
     int N = 1;
-    string sound_file_names[N] = {"Trial_1_Conv2"};
+    string sound_file_names[N] = {"Trial_1_Conv1"};
     
     string sound[N];
     string posns[N];
@@ -170,7 +178,7 @@ int main(){
     
     for (int i = 0; i < N; i ++){
         
-//      Set hints
+        // Set hints
         ovrAudio_SetAudioSourceFlags( c1, i, ovrAudioSourceFlag_WideBand_HINT);
         
         int blk_count  = 0;

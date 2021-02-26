@@ -54,7 +54,7 @@ typedef struct ovrPoseStatef_ ovrPoseStatef;
 #endif
 
 #define OVR_AUDIO_MAJOR_VERSION 1
-#define OVR_AUDIO_MINOR_VERSION 52
+#define OVR_AUDIO_MINOR_VERSION 57
 #define OVR_AUDIO_PATCH_VERSION 0
 
 #ifdef _WIN32
@@ -166,23 +166,6 @@ typedef enum
 
 } ovrAudioSpatializationStatus;
 
-/// Headphone models used for correction
-///
-/// \see ovrAudio_SetHeadphoneModel.
-typedef enum
-{
-    ovrAudioHeadphones_None           = -1,  ///< No correction applied
-    ovrAudioHeadphones_Rift           = 0,   ///< Apply correction for default headphones on Rift
-    ovrAudioHeadphones_Rift_INTERNAL0 = 1,   ///< Apply correction for default headphones on Rift
-    ovrAudioHeadphones_Rift_INTERNAL1 = 2,   ///< Apply correction for default headphones on Rift
-    ovrAudioHeadphones_Rift_INTERNAL2 = 3,   ///< Apply correction for default headphones on Rift
-    ovrAudioHeadphones_Rift_INTERNAL3 = 4,   ///< Apply correction for default headphones on Rift
-    ovrAudioHeadphones_Rift_INTERNAL4 = 5,   ///< Apply correction for default headphones on Rift
-
-    ovrAudioHeadphones_Custom         = 10,  ///< Apply correction using custom IR
-
-    ovrAudioHeadphones_COUNT
-} ovrAudioHeadphones;
 
 /// Performance counter enumerants
 ///
@@ -192,7 +175,6 @@ typedef enum
 {
     ovrAudioPerformanceCounter_Spatialization            = 0,  ///< Retrieve profiling information for spatialization
     ovrAudioPerformanceCounter_SharedReverb              = 1,  ///< Retrieve profiling information for shared reverb
-    ovrAudioPerformanceCounter_HeadphoneCorrection       = 2,  ///< Retrieve profiling information for headphone correction
 
     ovrAudioPerformanceCounter_COUNT
 } ovrAudioPerformanceCounter;
@@ -205,22 +187,17 @@ typedef enum
     ovrAudioAmbisonicFormat_AmbiX ///< ACN/SN3D standard, channel order = WYZX
 } ovrAudioAmbisonicFormat;
 
-
-/// Virtual speaker layouts for ambisonics
+/// Ambisonic rendering modes
 ///
-/// Provides a variety of virtual speaker layouts for ambisonic playback. The default is Spherical Harmonics which is a experimental approach that uses no virtual speakers at all and provides better externalization but can exhibit some artifacts with broadband content.
+/// NOTE: Support for rendering ambisonics via virtual speaker layouts has been
+/// discontinued in favor of improved decoding with spherical harmonics, which
+/// uses no virtual speakers at all and provides better externalization.
 ///
 typedef enum
 {
-    ovrAudioAmbisonicSpeakerLayout_FrontOnly           =  0, ///< A single virtual speaker in-front of listener
-    ovrAudioAmbisonicSpeakerLayout_Octahedron          =  1, ///< 6 virtual speakers
-    ovrAudioAmbisonicSpeakerLayout_Cube                =  2, ///< 8 virtual speakers
-    ovrAudioAmbisonicSpeakerLayout_Icosahedron         =  3, ///< 12 virtual speakers
-    ovrAudioAmbisonicSpeakerLayout_Dodecahedron        =  4, ///< 20 virtual speakers
-    ovrAudioAmbisonicSpeakerLayout_20PointElectron     =  5, ///< 20 virtual speakers more evenly distributed over sphere
-    ovrAudioAmbisonicSpeakerLayout_SphericalHarmonics  = -1, ///< (default) Uses a spherical harmonic representation of HRTF instead of virtual speakers
-    ovrAudioAmbisonicSpeakerLayout_Mono                = -2  ///< Plays the W (omni) channel through left and right with no spatialization
-} ovrAudioAmbisonicSpeakerLayout;
+    ovrAudioAmbisonicRenderMode_SphericalHarmonics  = -1, ///< (default) Uses a spherical harmonic representation of HRTF
+    ovrAudioAmbisonicRenderMode_Mono                = -2  ///< Plays the W (omni) channel through left and right with no spatialization
+} ovrAudioAmbisonicRenderMode;
 
 /// Opaque type definitions for audio source and context
 typedef struct ovrAudioSource_   ovrAudioSource;
@@ -739,32 +716,6 @@ OVRA_EXPORT ovrResult ovrAudio_SpatializeMonoSourceLR( ovrAudioContext Context,
                                                  float *DstLeft, float *DstRight,
                                                  const float *Src );
 
-/// Set the headphone model used by the headphone correction algorithm.
-///
-/// \param Context[in] context to use
-/// \param Model[in] model to use
-/// \param ImpulseResponse[in] impulse response to use
-/// \param NumSamples[in] size of impulse response in samples
-/// \return Returns an ovrResult indicating success or failure
-/// \see ovrAudio_ApplyHeadphoneCorrection
-///
-OVRA_EXPORT ovrResult ovrAudio_SetHeadphoneModel( ovrAudioContext Context,
-                                            ovrAudioHeadphones Model,
-                                            const float *ImpulseResponse, int NumSamples );
-
-/// Get the headphone model used by the headphone correction algorithm.
-///
-/// \param Context[in] context to use
-/// \param pModel[in] addr of returned model used
-/// \param pImpulseResponse[in] addr of returned impulse response used (as a readonly buffer)
-/// \param pNumSamples[in] addr of returned size of impulse response in samples
-/// \return Returns an ovrResult indicating success or failure
-/// \see ovrAudio_ApplyHeadphoneCorrection
-///
-OVRA_EXPORT ovrResult ovrAudio_GetHeadphoneModel( ovrAudioContext Context,
-                                            ovrAudioHeadphones* pModel,
-                                            const float** pImpulseResponse, int* pNumSamples );
-
 /// Mix shared reverb into buffer
 ///
 /// \param Context[in] context to use
@@ -806,31 +757,6 @@ OVRA_EXPORT ovrResult ovrAudio_SetSharedReverbWetLevel(ovrAudioContext Context,
 ///
 OVRA_EXPORT ovrResult ovrAudio_GetSharedReverbWetLevel(ovrAudioContext Context,
 	                                                      float *Level);
-
-/// Sets the min and max range of the shared reverb.
-///
-/// \param Context context to use
-/// \param RangeMin min range in meters (full gain)
-/// \param RangeMax max range in meters
-/// \return Returns an ovrResult indicating success or failure
-/// \see ovrAudio_SetListenerPoseStatef
-/// \see ovrAudio_MixInSharedReverbLR
-///
-OVRA_EXPORT ovrResult ovrAudio_SetSharedReverbRange( ovrAudioContext Context,
-                                                     float RangeMin, float RangeMax );
-
-/// Gets the min and max range of the shared reverb.
-///
-/// \param Context context to use
-/// \param pRangeMin addr of the returned min range in meters (full gain)
-/// \param pRangeMax addr of the returned max range in meters
-/// \return Returns an ovrResult indicating success or failure
-/// \see ovrAudio_SetSharedReverbRange
-/// \see ovrAudio_SetListenerPoseStatef
-/// \see ovrAudio_MixInSharedReverbLR
-///
-OVRA_EXPORT ovrResult ovrAudio_GetSharedReverbRange( ovrAudioContext Context,
-                                                     float* pRangeMin, float* pRangeMax );
 
 /// Set user headRadius.
 ///
@@ -917,19 +843,19 @@ OVRA_EXPORT ovrResult ovrAudio_ResetAmbisonicStream(ovrAudioAmbisonicStream Ambi
 ///
 OVRA_EXPORT ovrResult ovrAudio_DestroyAmbisonicStream(ovrAudioAmbisonicStream AmbisonicStream);
 
-/// Sets the virtual speaker layout for the ambisonic stream.
+/// Sets the render mode for the ambisonic stream.
 ///
 /// \param[in] Context a valid ambisonic stream
-/// \see ovrAudioAmbisonicSpeakerLayout
+/// \see ovrAudioAmbisonicRenderMode
 ///
-OVRA_EXPORT ovrResult ovrAudio_SetAmbisonicSpeakerLayout(ovrAudioAmbisonicStream AmbisonicStream, ovrAudioAmbisonicSpeakerLayout Layout);
+OVRA_EXPORT ovrResult ovrAudio_SetAmbisonicRenderMode(ovrAudioAmbisonicStream AmbisonicStream, ovrAudioAmbisonicRenderMode Mode);
 
-/// Sets the virtual speaker layout for the ambisonic stream.
+/// Sets the render mode for the ambisonic stream.
 ///
 /// \param[in] Context a valid ambisonic stream
-/// \see ovrAudioAmbisonicSpeakerLayout
+/// \see ovrAudioAmbisonicRenderMode
 ///
-OVRA_EXPORT ovrResult ovrAudio_GetAmbisonicSpeakerLayout(ovrAudioAmbisonicStream AmbisonicStream, ovrAudioAmbisonicSpeakerLayout* Layout);
+OVRA_EXPORT ovrResult ovrAudio_GetAmbisonicRenderMode(ovrAudioAmbisonicStream AmbisonicStream, ovrAudioAmbisonicRenderMode* Mode);
 
 /// Spatialize a mono in ambisonics
 ///
@@ -946,6 +872,10 @@ OVRA_EXPORT ovrResult ovrAudio_MonoToAmbisonic(const float* InMono, float Direct
 
 /// Render a speaker feed from ambisonics
 ///
+/// NOTE: While support for rendering ambisonics via virtual speaker layouts has been
+/// discontinued, this API is still provided for alternate uses and posterity.
+/// \see ovrAudioAmbisonicRenderMode
+///
 /// \param InAmbisonics[in] Interleaved ambisonic audio buffer to render (4 channels for 1st order, 9 channels for second order)
 /// \param DirectionX[in] X component of the direction vector
 /// \param DirectionY[in] Y component of the direction vector
@@ -959,7 +889,7 @@ OVRA_EXPORT ovrResult ovrAudio_RenderAmbisonicSpeakerFeed(const float* InAmbison
 
 /// Spatialize ambisonic stream
 ///
-/// \param Src[in] pointer to 4 channel interleaved B-format floating point buffer to spatialize
+/// \param Src[in] pointer to interleaved floating point ambisonic buffer to spatialize
 /// \param Dst[out] pointer to stereo interleaved floating point destination buffer
 ///
 OVRA_EXPORT ovrResult ovrAudio_ProcessAmbisonicStreamInterleaved(ovrAudioContext Context, ovrAudioAmbisonicStream AmbisonicStream, const float *Src, float *Dst, int NumSamples);
@@ -1144,7 +1074,7 @@ typedef enum
 
 inline ovrResult ovrAudio_GetReflectionBands(ovrAudioMaterialPreset Preset, AudioBands Bands)
 {
-    if (Preset < 0 || Preset >= ovrAudioMaterialPreset_COUNT || Bands == NULL)
+    if (Preset >= ovrAudioMaterialPreset_COUNT || Bands == NULL)
     {
         return ovrError_AudioInvalidParam;
     }
@@ -1620,35 +1550,6 @@ To ensure that the reverberation tail is not cut off, you can continue to feed t
 spatialization functions with silence (e.g. NULL source data) after all of the
 input data has been processed to get the rest of the output. When the tail has
 finished the OutStatus will contain ovrAudioSpatializationStatus_Finished flag.
-
-\subsection headphone Headphone Correction
-
-NOTE: This is currently not implemented!
-
-All transducers (speakers, headphones, microphones, et cetera) introduce their
-own characteristics on signals. This is usually measured as an **impulse
-response**. If we know the impulse response for a given transducer, we can correct
-for this by applying its inverse through deconvolution. Because spatialization is
-highly dependent on frequency response, removing the transducer contribution from
-signals generally helps with spatialization.
-
-The Audio SDK provides an optional set of APIs to perform this deconvolution. It
-requires having an impulse response for your headphones. For Rift, we have provided
-the impulse response internally.
-
-void AdjustStereoForHeadphones( ovrAudioContext Context,
-        float *OutLeft, float *OutRight,
-        const float *InLeft, const float *InRight,
-        int Length )
-{
-   // Normally we'd set headphone model just once
-   // Note: IR is supplied for Rift
-   ovrAudio_SetHeadphoneModel( Context, ovrAudioHeadphones_Rift, NULL, 0 );
-   ovrAudio_HeadphoneCorrection( Context,
-      OutLeft, OutRight,
-      InLeft, InRight,
-      Length );
-}
 
 This correction should occur at the final output stage. In other words, it should be
 applied directly on the stereo outputs and not on each sound.
