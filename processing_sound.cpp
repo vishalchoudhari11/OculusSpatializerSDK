@@ -185,7 +185,7 @@ int main(){
         if (prop1 == ovrSuccess && prop2 == ovrSuccess){
             cout<<"Sound properties (wideband, attenuation) have been set!" << endl;
         } else {
-            cout<<"Oops! Sound properties have not been set."
+            cout<<"Oops! Sound properties have not been set.";
         }
         
         int blk_count  = 0;
