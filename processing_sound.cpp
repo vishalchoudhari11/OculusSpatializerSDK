@@ -180,7 +180,7 @@ int main(){
         
         // Set hints
         int prop1 = ovrAudio_SetAudioSourceFlags( c1, i, ovrAudioSourceFlag_WideBand_HINT);
-        int prop2 = ovrAudio_SetAudioSourceAttenuationMode(c1, i, ovrAudioSourceAttenuationMode_InverseSquare, 0);  // 0 is actually don't care for the chosen AttenuationMode
+        int prop2 = ovrAudio_SetAudioSourceAttenuationMode(c1, i, ovrAudioSourceAttenuationMode_InverseSquare, 1);  // 1 is actually don't care for the chosen AttenuationMode
 
         if (prop1 == ovrSuccess && prop2 == ovrSuccess){
             cout<<"Sound properties (wideband, attenuation) have been set!" << endl;
