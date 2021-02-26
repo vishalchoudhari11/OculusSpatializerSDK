@@ -58,18 +58,6 @@ int main(){
     
 //  Declaring a context
     ovrAudioContext c1;
-    
-//  Turning on room paramters /hint:change ordering here?
-    int rs1 = ovrAudio_Enable(c1, ovrAudioEnable_SimpleRoomModeling, 1);
-    int rs2 = ovrAudio_Enable(c1, ovrAudioEnable_LateReverberation, 1);
-    int rs3 = ovrAudio_Enable(c1, ovrAudioEnable_RandomizeReverb, 1);
-    
-//  Check if enabled successfully
-    if( (rs1 == ovrSuccess) && (rs2 == ovrSuccess) && (rs3 == ovrSuccess)  ){
-        cout<<"Room settings have been set!" << endl;
-    } else{
-        cout << "Oops! Room setting parameters have not been set." << endl;
-    }
 
 //  Configuring AudioContext Parameters
     ovrAudioContextConfiguration config = {};
@@ -85,6 +73,18 @@ int main(){
         cout << "Context in main function has been created successfully!" << endl;
     } else{
         cout << "Oops! Context could not be created." << endl;
+    }
+
+    //  Turning on room paramters /hint:change ordering here?
+    int rs1 = ovrAudio_Enable(c1, ovrAudioEnable_SimpleRoomModeling, 1);
+    int rs2 = ovrAudio_Enable(c1, ovrAudioEnable_LateReverberation, 1);
+    int rs3 = ovrAudio_Enable(c1, ovrAudioEnable_RandomizeReverb, 1);
+    
+//  Check if enabled successfully
+    if( (rs1 == ovrSuccess) && (rs2 == ovrSuccess) && (rs3 == ovrSuccess)  ){
+        cout<<"Room settings have been set!" << endl;
+    } else{
+        cout << "Oops! Room setting parameters have not been set." << endl;
     }
 
 //  Setting simple room parameters, passing to the context and checking
