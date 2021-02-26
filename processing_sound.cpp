@@ -179,7 +179,14 @@ int main(){
     for (int i = 0; i < N; i ++){
         
         // Set hints
-        ovrAudio_SetAudioSourceFlags( c1, i, ovrAudioSourceFlag_WideBand_HINT);
+        int prop1 = ovrAudio_SetAudioSourceFlags( c1, i, ovrAudioSourceFlag_WideBand_HINT);
+        int prop2 = ovrAudio_SetAudioSourceAttenuationMode(c1, i, ovrAudioSourceAttenuationMode_InverseSquare)
+
+        if (prop1 == ovrSuccess && prop2 == ovrSuccess){
+            cout<<"Sound properties (wideband, attenuation) have been set!" << endl;
+        } else {
+            cout<<"Oops! Sound properties have not been set."
+        }
         
         int blk_count  = 0;
         while(posns_files[i].good()){
