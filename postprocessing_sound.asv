@@ -27,6 +27,4 @@ audiowrite(strcat(writepath, filename, ".wav"), audio_mat, Fs);
 
 %% Sanity check
 
-[y_ref, F_ref] = audioread("Spatialized/Trial_1_Conv1_Ref_26Feb21.wav");
-diff = norm(y_ref - audio_mat);
-fprintf("Difference between waveforms: %f", diff);
+y_ref = audr

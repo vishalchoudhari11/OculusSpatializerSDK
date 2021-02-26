@@ -93,9 +93,9 @@ int main(){
     ovrAudioBoxRoomParameters brp = {};
 
     brp.brp_Size = sizeof( brp );
-    brp.brp_ReflectLeft = brp.brp_ReflectRight = 0.97;
-    brp.brp_ReflectUp = brp.brp_ReflectDown = 0.97;
-    brp.brp_ReflectFront = brp.brp_ReflectBehind = 0.97;
+    brp.brp_ReflectLeft = brp.brp_ReflectRight = 0.8;
+    brp.brp_ReflectUp = brp.brp_ReflectDown = 0.8;
+    brp.brp_ReflectFront = brp.brp_ReflectBehind = 0.8;
 
     brp.brp_Width = 4;
     brp.brp_Height = 3;
