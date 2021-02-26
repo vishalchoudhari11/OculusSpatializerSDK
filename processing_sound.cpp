@@ -336,8 +336,8 @@ int main(){
     
     
     
-//    ovrAudio_DestroyContext(c1);
-//    ovrAudio_Shutdown();
+   ovrAudio_DestroyContext(c1);
+   ovrAudio_Shutdown();
     
 //  Closing the files
     
@@ -350,6 +350,6 @@ int main(){
     
     opfile.close();
     
-    cout << "My neighbours are noisy again!" << endl;
+    cout << "Spatializer script ends." << endl;
    	return 0;
 }
