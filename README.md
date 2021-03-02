@@ -15,7 +15,7 @@ Download/clone the repository in your local computer. The workflow is as follows
 ```bash
 g++ processing_sound.cpp -IAudioSDK/Include -LAudioSDK/Lib/Linux64 -lovraudio64.
 ```
-Note that you might have to add some library to OS's library list if the above command throws an error.
+Note that you might have to add/link a library to OS's library list if the above command throws an error.
 
 5. New files should be written to "FromCPP" directory.
 6. Open the MATLAB script "post-recessing_sound.m", make appropriate parameter adjustments and execute the file.
