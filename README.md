@@ -2,6 +2,8 @@
 
 This repository is built on top of Oculus Audio SDK and has been developed to generate audio files that mimic time-varying moving sound sources. Inputs are a set of N monaural sound files, each with its own specific trajectory. 
 
+NOTE: The only reference for devloping the processing_sound.cpp script was found at the end of the file: AudioSDK/Include/OVR_Audio.h
+
 ## Installation
 
 Download/clone the repository in your local computer. The workflow is as follows:
@@ -13,6 +15,7 @@ Download/clone the repository in your local computer. The workflow is as follows
 ```bash
 g++ processing_sound.cpp -IAudioSDK/Include -LAudioSDK/Lib/Linux64 -lovraudio64.
 ```
+Note that you might have to add some library to OS's library list if the above command throws an error.
 5. New files should be written to "FromCPP" directory.
 6. Open the MATLAB script "post-recessing_sound.m", make appropriate parameter adjustments and execute the file.
 7. The final output file having spatialised the passed sounds is available under "Spatialized" directory. 

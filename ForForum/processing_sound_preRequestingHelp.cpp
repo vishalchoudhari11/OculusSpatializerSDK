@@ -124,6 +124,18 @@ int main(){
         sound[i] = input_path + sound_file_names[i] + "_" + to_string(config.acc_SampleRate) + ".csv";
         posns[i] = input_path + sound_file_names[i] + "_" + "xyz.csv";
     }
+    
+//    int N = 1;
+//    char sound_file_names[N][20] = {"male"};
+//    char sound[N][30];
+//    char posns[N][30];
+//
+//    char input_path[50] = "ToCPP/";
+//
+//    for(int i = 0; i<N; i++){
+//        sound[i] = strcat(strcat(strcat("ToCPP/", sound_file_names[i]), strcat("_", to_string(config.acc_SampleRate))), ".csv");
+//        posns[i] = strcat(strcat("ToCPP/", sound_file_names[i]), strcat("_xyz", ".csv"));
+//    }
 
     //  Open sound and posn CSV files
     
@@ -283,6 +295,51 @@ int main(){
             opfile<<mixbuffer[j]<<endl;
         }
     }
+    
+//    do{
+//
+////        Reading block-by-block [buffer_size values]
+////        Location changes once per buffer_block
+//
+////        Setting position of sources
+//
+
+//
+//        records1 = records1 + 1;
+//        cout<<"Records1 count: "<<records1<<endl;
+//
+////      If either posn files is at end, set fetch_block = 0
+//        int check = 0;
+//
+//        for(int i = 0; i < N; i++){
+//            check = check + posns_files[i].good();
+//        }
+//
+//        if (check != N){
+//            proceed = 0;
+//            cout<<"Ending, proceed = 0. Records1 counted: "<<records1<<endl;
+//        }
+//
+//
+////      Fetching block
+//
+//        if (proceed == 1){
+//
+//            records2 = records2 + 1;
+//
+//        }
+//
+//
+//
+////      Apply spatialisation to the block
+//
+//    }
+//    while(proceed == 1);
+    
+//    cout<<"Value of records2: "<<records2<<endl;
+    
+//  CSV Write
+    
     
     
     
