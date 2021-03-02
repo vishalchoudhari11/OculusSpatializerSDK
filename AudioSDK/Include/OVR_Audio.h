@@ -2,6 +2,7 @@
 \file      OVR_Audio.h
 \brief     OVR Audio SDK public header file
 \copyright Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
+\Version 25.0.0
 ************************************************************************************/
 #ifndef OVR_Audio_h
 #define OVR_Audio_h
