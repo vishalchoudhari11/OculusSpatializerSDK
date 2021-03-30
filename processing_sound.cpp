@@ -264,6 +264,7 @@ int main(){
             }
         
             ovrAudio_SpatializeMonoSourceInterleaved(c1, i, &Status, outbuffer, inbuffer);
+            ovrAudio_MixInSharedReverbInterleaved(c1, &Status, outbuffer);
             
             for(int j = 0; j < 1024; j ++){
                 if (i==0){
